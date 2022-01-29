@@ -1,5 +1,6 @@
 package simulation.simulation;
 
+import java.util.Random;
 import java.awt.*;
 
 public abstract class Vehicle {
@@ -17,6 +18,7 @@ public abstract class Vehicle {
     // Component where witness is going to be drawn at
     Component c;
 
+    static final Random rand = new Random();
     final Runnable vehicleRunnable = new Runnable() {
         public void run() {
             vehicleAction();
@@ -40,10 +42,17 @@ public abstract class Vehicle {
 
     private void vehicleAction() {
         while (true) {
-            if (Y != destY) {
-                Y += (Y < destY) ? STEP_LENGTH : -STEP_LENGTH;
-            } else {
-                X += (X < destX) ? STEP_LENGTH : -STEP_LENGTH;
+            if (Y != destY && rand.nextBoolean()) {
+                int distance = Y - destY;
+                int distanceAbs = Math.abs(distance);
+                int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
+                Y += (distance > 0 ? -step : step);
+            }
+            if (X != destX && rand.nextBoolean()){
+                int distance = X - destX;
+                int distanceAbs = Math.abs(distance);
+                int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
+                X += (distance > 0 ? -step : step);
             }
 
             c.repaint();

@@ -6,7 +6,9 @@ import java.util.Random;
 public class Witness {
     // Delay between each step and accident seek
     final int THREAD_SLEEP_TIME = 10;
-    final int STEP_LENGTH = 5;
+    final int STEP_LENGTH = 1;
+    // Range to choose a new destionation on map
+    final int NEW_DEST_RANGE = 100;
     final int OBJECT_WIDTH = 10;
     final int OBJECT_HEIGHT = 10;
 
@@ -22,6 +24,7 @@ public class Witness {
 
     static int borderWidth = -1, borderHeight = -1;
     int X, Y;
+    int destX, destY;
     boolean threadShouldStop = false;
     Thread witnessThread;
 
@@ -37,8 +40,8 @@ public class Witness {
             throw new Exception("Border not specified, use setBorder()");
         }
 
-        X = rand.nextInt(borderWidth);
-        Y = rand.nextInt(borderHeight);
+        X = destX = rand.nextInt(borderWidth);
+        Y = destY = rand.nextInt(borderHeight);
 
         witnessThread = new Thread(witnessRunnable);
         witnessThread.start();
@@ -48,21 +51,40 @@ public class Witness {
 
     void witnessAction() {
         while (!threadShouldStop) {
-            // Randomly choose direction of step
-            if (rand.nextBoolean()) {
+            if (Y == destY && X == destX) {
+                // It's time to choose new destination
+
                 // Offset the step to move in both directions
-                X += rand.nextInt(STEP_LENGTH * 2) - STEP_LENGTH;
+                destX += rand.nextInt(NEW_DEST_RANGE * 2 + 1) - NEW_DEST_RANGE;
+                destY += rand.nextInt(NEW_DEST_RANGE * 2 + 1) - NEW_DEST_RANGE;
+
+                // Check bounds
+                if (destY > borderHeight)
+                    destY = borderHeight;
+                if (destY < 0)
+                    destY = 0;
+                if (destX > borderWidth)
+                    destX = borderWidth;
+                if (destX < 0)
+                    destX = 0;
             }
-            if (rand.nextBoolean()) {
-                Y += rand.nextInt(STEP_LENGTH * 2) - STEP_LENGTH;
+
+            // Randomly choose path to dest
+            if (X != destX && rand.nextBoolean()) {
+                int distance = X - destX;
+                int distanceAbs = Math.abs(distance);
+                int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
+                X += (distance > 0 ? -step : step);
             }
-            // Check bounds
-            if (Y > borderHeight)
-                Y = borderHeight;
-            if (X > borderWidth)
-                X = borderWidth;
+            if (Y != destY && rand.nextBoolean()) {
+                int distance = Y - destY;
+                int distanceAbs = Math.abs(distance);
+                int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
+                Y += (distance > 0 ? -step : step);
+            }
 
             c.repaint();
+
             // TODO: check for accidents and report to Operator
 
             try {
