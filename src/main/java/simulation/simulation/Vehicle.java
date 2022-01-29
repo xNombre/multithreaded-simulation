@@ -5,20 +5,20 @@ import java.awt.*;
 
 public abstract class Vehicle {
     // Delay between each step
-    final int THREAD_SLEEP_TIME = 10;
-    final int STEP_LENGTH = 1;
+    private static final int THREAD_SLEEP_TIME = 10;
+    private static final int STEP_LENGTH = 1;
     // Time needed for rescure after reaching the destination
-    final int RESCUE_TIME = 50;
-    final int STARTING_X = 50;
-    final int STARTING_Y = 0;
+    private static final int RESCUE_TIME = 50;
+    private static final int STARTING_X = 50;
+    private static final int STARTING_Y = 0;
 
-    final int OBJECT_WIDTH = 10;
-    final int OBJECT_HEIGHT = 10;
+    protected static final int OBJECT_WIDTH = 10;
+    protected static final int OBJECT_HEIGHT = 10;
 
     // Component where witness is going to be drawn at
     Component c;
 
-    static final Random rand = new Random();
+    private static final Random rand = new Random();
     final Runnable vehicleRunnable = new Runnable() {
         public void run() {
             vehicleAction();
@@ -40,7 +40,7 @@ public abstract class Vehicle {
         this.c = c;
     }
 
-    private void vehicleAction() {
+    void vehicleAction() {
         while (true) {
             if (Y != destY && rand.nextBoolean()) {
                 int distance = Y - destY;

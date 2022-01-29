@@ -5,24 +5,24 @@ import java.util.Random;
 
 public class Witness {
     // Delay between each step and accident seek
-    final int THREAD_SLEEP_TIME = 10;
-    final int STEP_LENGTH = 1;
+    private static final int THREAD_SLEEP_TIME = 10;
+    private static final int STEP_LENGTH = 1;
     // Range to choose a new destionation on map
-    final int NEW_DEST_RANGE = 100;
-    final int OBJECT_WIDTH = 10;
-    final int OBJECT_HEIGHT = 10;
+    private static final int NEW_DEST_RANGE = 100;
+    private static final int OBJECT_WIDTH = 10;
+    private static final int OBJECT_HEIGHT = 10;
 
     // Component where witness is going to be drawn at
     Component c;
 
-    static final Random rand = new Random();
+    private static final Random rand = new Random();
     final Runnable witnessRunnable = new Runnable() {
         public void run() {
             witnessAction();
         }
     };
 
-    static int borderWidth = -1, borderHeight = -1;
+    private static int borderWidth = -1, borderHeight = -1;
     int X, Y;
     int destX, destY;
     boolean threadShouldStop = false;
