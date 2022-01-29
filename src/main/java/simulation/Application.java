@@ -9,7 +9,11 @@ public class Application {
     public static void main(String[] args){
 
         SwingUtilities.invokeLater(() -> {
-            var simulationFrame = new SimulationFrame(800,800);
+            try {
+                var simulationFrame = new SimulationFrame(800,800);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
     }
