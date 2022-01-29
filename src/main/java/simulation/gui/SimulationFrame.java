@@ -1,7 +1,7 @@
 package simulation.gui;
 
-import simulation.simulation.Ambulance;
-import simulation.simulation.Vehicle;
+import simulation.simulation.Accident;
+import simulation.simulation.AccidentGenerator;
 import simulation.simulation.Witness;
 
 import javax.swing.*;
@@ -11,19 +11,20 @@ import java.util.ArrayList;
 public class SimulationFrame extends JFrame {
 
     static ArrayList<Witness> witnesses = new ArrayList<>();
-    static ArrayList<Vehicle> vehicles = new ArrayList<>();
+    static AccidentGenerator generator = new AccidentGenerator();
+    public static ArrayList<Accident> accidends = new ArrayList();
 
     private static class SimulationPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+            
+            for(Accident accident : accidends) {
+            	accident.paint(g);
+            }
 
             for(Witness witness : witnesses){
                 witness.paint(g);
-            }
-
-            for(Vehicle vehicle : vehicles) {
-                vehicle.paint(g);
             }
         }
     }
@@ -35,17 +36,11 @@ public class SimulationFrame extends JFrame {
         this.initializeProperties();
 
         SimulationPanel panel = new SimulationPanel();
-        panel.setBackground(Color.gray);
         this.add(panel);
 
-        // Change this values later
         Witness.setBorder(600, 600);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             witnesses.add(new Witness(panel));
-        }
-
-        for (int i = 0; i < 1; i++) {
-            vehicles.add(new Ambulance(100,100, panel));
         }
 
     }
