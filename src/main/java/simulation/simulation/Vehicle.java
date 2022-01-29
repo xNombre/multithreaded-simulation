@@ -1,13 +1,21 @@
 package simulation.simulation;
 
+import java.awt.*;
+
 public abstract class Vehicle {
     // Delay between each step
     final int THREAD_SLEEP_TIME = 10;
-    final int STEP_LENGTH = 5;
+    final int STEP_LENGTH = 1;
     // Time needed for rescure after reaching the destination
     final int RESCUE_TIME = 50;
     final int STARTING_X = 50;
     final int STARTING_Y = 0;
+
+    final int OBJECT_WIDTH = 10;
+    final int OBJECT_HEIGHT = 10;
+
+    // Component where witness is going to be drawn at
+    Component c;
 
     final Runnable vehicleRunnable = new Runnable() {
         public void run() {
@@ -20,12 +28,14 @@ public abstract class Vehicle {
     boolean isReturning = false;
     Thread vehicleThread;
 
-    Vehicle(int destX, int destY) {
+    Vehicle(int destX, int destY, Component c) {
         this.destX = destX;
         this.destY = destY;
 
         vehicleThread = new Thread(vehicleRunnable);
         vehicleThread.start();
+
+        this.c = c;
     }
 
     private void vehicleAction() {
@@ -35,6 +45,8 @@ public abstract class Vehicle {
             } else {
                 X += (X < destX) ? STEP_LENGTH : -STEP_LENGTH;
             }
+
+            c.repaint();
 
             if (Y == destY && X == destX) {
                 // Am I done?
@@ -60,4 +72,6 @@ public abstract class Vehicle {
             }
         }
     }
+
+    public abstract void paint(Graphics g);
 }
