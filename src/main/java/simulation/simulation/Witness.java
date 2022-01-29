@@ -98,7 +98,13 @@ public class Witness {
         g.fillRect(X, Y, OBJECT_WIDTH, OBJECT_HEIGHT);
     }
 
-    void threadStop() {
+    public void threadStop() {
         threadShouldStop = true;
+    }
+
+    public void threadStart() {
+        threadShouldStop = false;
+        witnessThread = new Thread(witnessRunnable);
+        witnessThread.start();
     }
 }
