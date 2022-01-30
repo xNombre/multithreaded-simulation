@@ -6,17 +6,15 @@ import simulation.simulation.Witness;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class SimulationFrame extends JFrame implements ActionListener {
+public class SimulationFrame extends JFrame {
 
     static ArrayList<Witness> witnesses = new ArrayList<>();
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
-    Button b1 = new Button("Start");
-    Button b2 = new Button("Stop");
-    Button b3 = new Button("Reset");
+    Button startButton = new Button("Start");
+    Button stopButton = new Button("Stop");
+    Button resetButton = new Button("Reset");
     SimulationPanel panel = new SimulationPanel();
 
 
@@ -42,12 +40,16 @@ public class SimulationFrame extends JFrame implements ActionListener {
         this.initializeProperties();
 
         panel.setBackground(Color.gray);
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
-        panel.add(b1);
-        panel.add(b2);
-        panel.add(b3);
+
+        startButton.addActionListener(e -> startSimulation());
+
+        stopButton.addActionListener(e -> stopSimulation());
+
+        resetButton.addActionListener(e -> resetSimulation());
+
+        panel.add(startButton);
+        panel.add(stopButton);
+        panel.add(resetButton);
         this.add(panel);
 
         addObjectsToPanel();
@@ -79,35 +81,32 @@ public class SimulationFrame extends JFrame implements ActionListener {
             this.setText(name);
         }
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
 
-        if(source == b1){
-            for (Witness i : witnesses){
-                i.threadStart();
-            }
-            for (Vehicle i : vehicles){
-                i.threadStart();
-            }
+    private void startSimulation() {
+        for (Witness i : witnesses){
+            i.threadStart();
         }
-        else if (source == b2){
-            for (Witness i : witnesses){
-                i.threadStop();
-            }
-            for (Vehicle i : vehicles){
-                i.threadStop();
-            }
-        }
-        else if (source == b3){
-            witnesses.removeAll(witnesses);
-            vehicles.removeAll(vehicles);
-            try {
-                addObjectsToPanel();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+        for (Vehicle i : vehicles){
+            i.threadStart();
         }
     }
 
+    private void stopSimulation() {
+        for (Witness i : witnesses){
+            i.threadStop();
+        }
+        for (Vehicle i : vehicles){
+            i.threadStop();
+        }
+    }
+
+    private void resetSimulation() {
+        witnesses.removeAll(witnesses);
+        vehicles.removeAll(vehicles);
+        try {
+            addObjectsToPanel();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
