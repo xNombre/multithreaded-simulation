@@ -10,8 +10,8 @@ public enum AccidentType {
 
     private static final Random rand = new Random();
 
-    public static <T extends Enum<?>> T getRandomAccident(Class<T> clazz) {
-        int x = rand.nextInt(clazz.getEnumConstants().length);
-        return clazz.getEnumConstants()[x];
+    public static AccidentType getRandomAccident() {
+        int x = rand.nextInt(AccidentType.values().length);
+        return AccidentType.values()[x];
     }
 }
