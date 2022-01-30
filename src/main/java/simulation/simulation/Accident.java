@@ -1,12 +1,20 @@
 package simulation.simulation;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
 public class Accident {
+    private static final ImageIcon fire = new ImageIcon("src/main/java/simulation/graphics/fire.png");
+    private static final ImageIcon healthHazard = new ImageIcon("src/main/java/simulation/graphics/healthHazard.png");
+    private static final ImageIcon robbery = new ImageIcon("src/main/java/simulation/graphics/robbery.png");
+    private static final ImageIcon traffAcc = new ImageIcon("src/main/java/simulation/graphics/traffAcc.png");
+
     int X, Y;
     AccidentType type;
-    Color color;
+
+    final ImageIcon img;
+
     private static final Random rand = new Random();
 
     Accident(AccidentType type) {
@@ -14,16 +22,16 @@ public class Accident {
 
         switch (type) {
             case FIRE:
-                color = Color.red;
+                img = fire;
                 break;
             case HEALTH_HAZARD:
-                color = Color.green;
+                img = healthHazard;
                 break;
             case TRAFFIC_ACCIDENT:
-                color = Color.black;
+                img = traffAcc;
                 break;
             default:
-                color = Color.blue;
+                img = robbery;
                 break;
         }
         X = rand.nextInt(600);
@@ -31,7 +39,6 @@ public class Accident {
     }
 
     public void paint(Graphics g) {
-        g.setColor(color);
-        g.fillOval(X, Y, 30, 30);
+        g.drawImage(img.getImage(), X, Y,30,30, null);
     }
 }
