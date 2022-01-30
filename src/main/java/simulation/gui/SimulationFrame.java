@@ -39,6 +39,7 @@ public class SimulationFrame extends JFrame {
         super("Simulation");
         this.setSize(new Dimension(width, height));
         this.setLayout(new BorderLayout());
+        this.setResizable(false);
 
         this.initializeProperties();
 
@@ -63,7 +64,7 @@ public class SimulationFrame extends JFrame {
 
     void addObjectsToPanel() throws Exception {
         // Change this values later
-        Witness.setBorder(600, 600);
+        Witness.setBorder(800, 800);
         for (int i = 0; i < 10; i++) {
             witnesses.add(new Witness(simPanel));
         }
