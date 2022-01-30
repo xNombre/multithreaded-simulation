@@ -75,6 +75,9 @@ public abstract class Vehicle {
                 } catch (InterruptedException e) {
                 }
 
+                // Remove accident
+                Accident.removeAccident(X, Y);
+
                 // Time to return, change destination
                 destX = STARTING_X;
                 destY = STARTING_Y;
@@ -88,6 +91,7 @@ public abstract class Vehicle {
             }
         }
         isBusy = false;
+        isReturning = false;
     }
 
     public abstract void paint(Graphics g);

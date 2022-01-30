@@ -14,6 +14,30 @@ public class VehicleDispatcher {
 
     private static Component component;
     public List<Vehicle> vehicles = new ArrayList<Vehicle>();
+    List<EmergencyAction> emergencyList = new ArrayList<EmergencyAction>();
+
+    private class EmergencyAction {
+        private int X, Y;
+        private VehicleType type;
+
+        public int getX() {
+            return X;
+        }
+
+        public int getY() {
+            return Y;
+        }
+
+        public VehicleType getVehicleType() {
+            return type;
+        }
+
+        public EmergencyAction(int X, int Y, VehicleType type) {
+            this.X = X;
+            this.Y = Y;
+            this.type = type;
+        }
+    }
 
     public static VehicleDispatcher getInstance() {
         if (INSTANCE == null)
@@ -41,12 +65,18 @@ public class VehicleDispatcher {
     }
 
     public synchronized void dispatchVehicle(int X, int Y, VehicleType vehicle) {
+        for (EmergencyAction action : emergencyList) {
+            if (X == action.getX() && Y == action.getY() && vehicle == action.getVehicleType())
+                return;
+        }
+
         for (Vehicle veh : vehicles) {
-            if (veh.vehicleType == vehicle){
-                if(veh.isBusy()) {
+            if (veh.vehicleType == vehicle) {
+                if (veh.isBusy())
                     continue;
-                }
+
                 veh.newTask(X, Y);
+                emergencyList.add(new EmergencyAction(X, Y, vehicle));
                 return;
             }
 

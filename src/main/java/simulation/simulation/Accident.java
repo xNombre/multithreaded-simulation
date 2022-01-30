@@ -1,6 +1,9 @@
 package simulation.simulation;
 
 import javax.swing.*;
+
+import simulation.gui.SimulationFrame;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -51,5 +54,14 @@ public class Accident {
 
     public void paint(Graphics g) {
         g.drawImage(img.getImage(), X, Y,30,30, null);
+    }
+
+    public static void removeAccident(int X, int Y) {
+        for(Accident accident : SimulationFrame.accidends) {
+            if(X == accident.getX() && Y == accident.getY()) {
+                SimulationFrame.accidends.remove(accident);
+                return;
+            }
+        }
     }
 }
