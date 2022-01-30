@@ -15,7 +15,9 @@ public class SimulationFrame extends JFrame {
     Button startButton = new Button("Start");
     Button stopButton = new Button("Stop");
     Button resetButton = new Button("Reset");
-    SimulationPanel panel = new SimulationPanel();
+
+    SimulationPanel simPanel = new SimulationPanel();
+    JPanel butPanel = new JPanel();
 
 
     private static class SimulationPanel extends JPanel {
@@ -36,10 +38,11 @@ public class SimulationFrame extends JFrame {
     public SimulationFrame(final int width, final int height) throws Exception {
         super("Simulation");
         this.setSize(new Dimension(width, height));
+        this.setLayout(new BorderLayout());
 
         this.initializeProperties();
 
-        panel.setBackground(Color.gray);
+        simPanel.setBackground(Color.gray);
 
         startButton.addActionListener(e -> startSimulation());
 
@@ -47,10 +50,11 @@ public class SimulationFrame extends JFrame {
 
         resetButton.addActionListener(e -> resetSimulation());
 
-        panel.add(startButton);
-        panel.add(stopButton);
-        panel.add(resetButton);
-        this.add(panel);
+        butPanel.add(startButton);
+        butPanel.add(stopButton);
+        butPanel.add(resetButton);
+        this.add(butPanel, BorderLayout.NORTH);
+        this.add(simPanel, BorderLayout.CENTER);
 
         addObjectsToPanel();
 
@@ -60,11 +64,11 @@ public class SimulationFrame extends JFrame {
         // Change this values later
         Witness.setBorder(600, 600);
         for (int i = 0; i < 10; i++) {
-            witnesses.add(new Witness(panel));
+            witnesses.add(new Witness(simPanel));
         }
 
         for (int i = 0; i < 1; i++) {
-            vehicles.add(new Ambulance(100,100, panel));
+            vehicles.add(new Ambulance(100,100, simPanel));
         }
     }
 
@@ -74,7 +78,7 @@ public class SimulationFrame extends JFrame {
         this.setVisible(true);
     }
 
-    class Button extends JButton{
+    private static class Button extends JButton{
         Button(String name){
             this.setSize(200,100);
             this.setVisible(true);
