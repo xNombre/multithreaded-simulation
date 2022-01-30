@@ -20,18 +20,18 @@ public abstract class Vehicle {
     protected VehicleType vehicleType;
 
     private static final Random rand = new Random();
-    final Runnable vehicleRunnable = new Runnable() {
+    private final Runnable vehicleRunnable = new Runnable() {
         public void run() {
             vehicleAction();
         }
     };
 
-    int destX, destY;
-    int X = STARTING_X, Y = STARTING_Y;
-    boolean isReturning = false;
-    boolean threadShouldStop = false;
-    Thread vehicleThread;
-    boolean isBusy = false;
+    private int destX, destY;
+    protected int X = STARTING_X, Y = STARTING_Y;
+    private boolean isReturning = false;
+    private boolean threadShouldStop = false;
+    private Thread vehicleThread;
+    private boolean isBusy = false;
 
     Vehicle(int destX, int destY, Component c) {
         this.destX = destX;

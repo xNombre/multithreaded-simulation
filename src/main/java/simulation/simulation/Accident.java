@@ -20,7 +20,7 @@ public class Accident {
     private int X, Y;
     private AccidentType type;
 
-    final ImageIcon img;
+    private final ImageIcon img;
 
     private static final Random rand = new Random();
 

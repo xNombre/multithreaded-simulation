@@ -13,7 +13,7 @@ public class VehicleDispatcher {
     private static final int POLICE_CAR_COUNT = 10;
 
     public List<Vehicle> vehicles = new ArrayList<Vehicle>();
-    List<EmergencyAction> emergencyList = new ArrayList<EmergencyAction>();
+    private List<EmergencyAction> emergencyList = new ArrayList<EmergencyAction>();
 
     private class EmergencyAction {
         private int X, Y;

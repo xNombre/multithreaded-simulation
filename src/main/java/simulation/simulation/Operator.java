@@ -11,7 +11,7 @@ public class Operator {
         return id;
     }
 
-    void receiveReport(int X, int Y, AccidentType type) {
+    public void receiveReport(int X, int Y, AccidentType type) {
         switch (type) {
             case FIRE:
                 VehicleDispatcher.getInstance().dispatchVehicle(X, Y, VehicleType.FIRE_TRUCK);

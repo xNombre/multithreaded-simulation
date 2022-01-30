@@ -6,8 +6,8 @@ public class Helpline {
     private static final int OPERATORS_COUNT = 10;
     public static final Helpline INSTANCE = new Helpline();
 
-    ArrayList<Operator> operatorsList;
-    int currentOperator = 0;
+    private ArrayList<Operator> operatorsList;
+    private int currentOperator = 0;
 
     private Helpline() {
         operatorsList = new ArrayList<Operator>();

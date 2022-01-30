@@ -23,10 +23,10 @@ public class Witness {
     };
 
     private static int borderWidth = -1, borderHeight = -1;
-    int X, Y;
-    int destX, destY;
-    boolean threadShouldStop = false;
-    Thread witnessThread;
+    private int X, Y;
+    private int destX, destY;
+    private boolean threadShouldStop = false;
+    private Thread witnessThread;
 
     public static void setBorder(int borderWidth, int borderHeight) {
         if (borderWidth < 1 || borderHeight < 1)
