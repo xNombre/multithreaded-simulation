@@ -13,7 +13,7 @@ public class Witness {
     private static final int NEW_DEST_RANGE = 100;
     private static final int OBJECT_WIDTH = 10;
     private static final int OBJECT_HEIGHT = 10;
-    private static final int REPORTING_RANGE =  10;
+    private static final int REPORTING_RANGE = 10;
 
     private static final Random rand = new Random();
     final Runnable witnessRunnable = new Runnable() {
@@ -28,16 +28,16 @@ public class Witness {
     boolean threadShouldStop = false;
     Thread witnessThread;
 
-    public static void setBorder(int borderWidth, int borderHeight) throws Exception {
+    public static void setBorder(int borderWidth, int borderHeight) {
         if (borderWidth < 1 || borderHeight < 1)
-            throw new Exception("Border values must be greater");
+            throw new IllegalArgumentException();
         Witness.borderWidth = borderWidth - OBJECT_WIDTH;
         Witness.borderHeight = borderHeight - OBJECT_HEIGHT;
     }
 
-    public Witness(Component c) throws Exception {
+    public Witness(Component c) {
         if (borderWidth == -1 || borderHeight == -1) {
-            throw new Exception("Border not specified, use setBorder()");
+            throw new IllegalStateException();
         }
 
         X = destX = rand.nextInt(borderWidth);
@@ -85,9 +85,11 @@ public class Witness {
 
             SimulationFrame.simPanel.repaint();
 
-            for (Accident accident: SimulationFrame.accidends){
-                if (Math.abs(accident.getX() - this.X) < REPORTING_RANGE && Math.abs(accident.getY()- this.Y) < REPORTING_RANGE) {
-                    Helpline.getInstance().getOperator().receiveReport(accident.getX(), accident.getY(), accident.getType());
+            for (Accident accident : SimulationFrame.accidends) {
+                if (Math.abs(accident.getX() - this.X) < REPORTING_RANGE
+                        && Math.abs(accident.getY() - this.Y) < REPORTING_RANGE) {
+                    Helpline.getInstance().getOperator().receiveReport(accident.getX(), accident.getY(),
+                            accident.getType());
                 }
             }
 

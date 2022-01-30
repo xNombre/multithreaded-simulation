@@ -73,6 +73,7 @@ public class SimulationFrame extends JFrame {
 
         // Hack height, should be calculated dynamically
         Witness.setBorder(800, 728);
+        Accident.setBorder(800, 728);
 
         addObjectsToPanel();
 
