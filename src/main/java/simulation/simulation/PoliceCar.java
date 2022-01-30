@@ -7,6 +7,10 @@ public class PoliceCar extends Vehicle {
         super(destX, destY, c);
     }
 
+    public PoliceCar(Component c){
+        super(c);
+    }
+
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.BLUE);

@@ -7,6 +7,10 @@ public class FireTruck extends Vehicle {
         super(destX, destY, c);
     }
 
+    public FireTruck(Component c){
+        super(c);
+    }
+
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.RED);

@@ -2,6 +2,7 @@ package simulation.gui;
 
 import simulation.simulation.Ambulance;
 import simulation.simulation.Vehicle;
+import simulation.simulation.VehicleDispatcher;
 import simulation.simulation.Witness;
 import simulation.simulation.Accident;
 import simulation.simulation.AccidentGenerator;
@@ -41,6 +42,18 @@ public class SimulationFrame extends JFrame {
             for (Vehicle vehicle : vehicles) {
                 vehicle.paint(g);
             }
+
+            for(Vehicle vehicle : VehicleDispatcher.getInstance().ambulances) {
+                vehicle.paint(g);
+            }
+
+            for(Vehicle vehicle : VehicleDispatcher.getInstance().firetrucks) {
+                vehicle.paint(g);
+            }
+
+            for(Vehicle vehicle : VehicleDispatcher.getInstance().policecars) {
+                vehicle.paint(g);
+            }
         }
     }
 
@@ -69,17 +82,19 @@ public class SimulationFrame extends JFrame {
         // Hack height, should be calculated dynamically
         Witness.setBorder(800, 728);
 
+        VehicleDispatcher.getInstance().setComponent(simPanel);
+
         addObjectsToPanel();
 
     }
 
     void addObjectsToPanel() throws Exception {
         // Change this values later
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             witnesses.add(new Witness(simPanel));
         }
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 0; i++) {
             vehicles.add(new Ambulance(100, 100, simPanel));
         }
 

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public abstract class Vehicle {
     // Delay between each step
-    private static final int THREAD_SLEEP_TIME = 10;
+    private static final int THREAD_SLEEP_TIME = 1;
     private static final int STEP_LENGTH = 1;
     // Time needed for rescure after reaching the destination
     private static final int RESCUE_TIME = 50;
@@ -30,6 +30,7 @@ public abstract class Vehicle {
     boolean isReturning = false;
     boolean threadShouldStop = false;
     Thread vehicleThread;
+    boolean isBusy = false;
 
     Vehicle(int destX, int destY, Component c) {
         this.destX = destX;
@@ -41,6 +42,10 @@ public abstract class Vehicle {
         this.c = c;
     }
 
+    Vehicle(Component c) {
+        this.c = c;
+    }
+
     void vehicleAction() {
         while (!threadShouldStop) {
             if (Y != destY && rand.nextBoolean()) {
@@ -49,7 +54,7 @@ public abstract class Vehicle {
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
                 Y += (distance > 0 ? -step : step);
             }
-            if (X != destX && rand.nextBoolean()){
+            if (X != destX && rand.nextBoolean()) {
                 int distance = X - destX;
                 int distanceAbs = Math.abs(distance);
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
@@ -81,11 +86,12 @@ public abstract class Vehicle {
             } catch (InterruptedException e) {
             }
         }
+        isBusy = false;
     }
 
     public abstract void paint(Graphics g);
 
-   public void threadStop() {
+    public void threadStop() {
         threadShouldStop = true;
     }
 
@@ -94,5 +100,16 @@ public abstract class Vehicle {
         vehicleThread = new Thread(vehicleRunnable);
         vehicleThread.start();
     }
-}
 
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void newTask(int destX, int destY) {
+        this.destX = destX;
+        this.destY = destY;
+
+        vehicleThread = new Thread(vehicleRunnable);
+        vehicleThread.start();
+    }
+}
