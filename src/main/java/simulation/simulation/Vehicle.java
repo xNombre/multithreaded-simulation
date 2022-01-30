@@ -14,6 +14,7 @@ public abstract class Vehicle {
 
     protected static final int OBJECT_WIDTH = 10;
     protected static final int OBJECT_HEIGHT = 10;
+    protected VehicleType vehicleType;
 
     // Component where witness is going to be drawn at
     Component c;
@@ -30,6 +31,7 @@ public abstract class Vehicle {
     boolean isReturning = false;
     boolean threadShouldStop = false;
     Thread vehicleThread;
+    boolean isBusy = false;
 
     Vehicle(int destX, int destY, Component c) {
         this.destX = destX;
@@ -41,6 +43,10 @@ public abstract class Vehicle {
         this.c = c;
     }
 
+    Vehicle(Component c) {
+        this.c = c;
+    }
+
     void vehicleAction() {
         while (!threadShouldStop) {
             if (Y != destY && rand.nextBoolean()) {
@@ -49,7 +55,7 @@ public abstract class Vehicle {
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
                 Y += (distance > 0 ? -step : step);
             }
-            if (X != destX && rand.nextBoolean()){
+            if (X != destX && rand.nextBoolean()) {
                 int distance = X - destX;
                 int distanceAbs = Math.abs(distance);
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
@@ -69,6 +75,9 @@ public abstract class Vehicle {
                 } catch (InterruptedException e) {
                 }
 
+                // Remove accident
+                Accident.removeAccident(X, Y);
+
                 // Time to return, change destination
                 destX = STARTING_X;
                 destY = STARTING_Y;
@@ -81,11 +90,13 @@ public abstract class Vehicle {
             } catch (InterruptedException e) {
             }
         }
+        isBusy = false;
+        isReturning = false;
     }
 
     public abstract void paint(Graphics g);
 
-   public void threadStop() {
+    public void threadStop() {
         threadShouldStop = true;
     }
 
@@ -94,5 +105,17 @@ public abstract class Vehicle {
         vehicleThread = new Thread(vehicleRunnable);
         vehicleThread.start();
     }
-}
 
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void newTask(int destX, int destY) {
+        this.destX = destX;
+        this.destY = destY;
+        this.isBusy = true;
+
+        vehicleThread = new Thread(vehicleRunnable);
+        vehicleThread.start();
+    }
+}

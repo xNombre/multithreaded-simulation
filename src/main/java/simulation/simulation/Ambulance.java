@@ -7,6 +7,11 @@ public class Ambulance extends Vehicle {
         super(destX, destY, c);
     }
 
+    public Ambulance(Component c){
+        super(c);
+        this.vehicleType = VehicleType.AMBULANCE;
+    }
+
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.WHITE);

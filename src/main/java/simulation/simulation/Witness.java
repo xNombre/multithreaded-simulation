@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Witness {
     // Delay between each step and accident seek
-    private static final int THREAD_SLEEP_TIME = 10;
+    private static final int THREAD_SLEEP_TIME = 5;
     private static final int STEP_LENGTH = 1;
     // Range to choose a new destionation on map
     private static final int NEW_DEST_RANGE = 100;
