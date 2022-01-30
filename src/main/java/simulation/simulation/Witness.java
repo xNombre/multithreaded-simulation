@@ -1,5 +1,7 @@
 package simulation.simulation;
 
+import simulation.gui.SimulationFrame;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ public class Witness {
     private static final int NEW_DEST_RANGE = 100;
     private static final int OBJECT_WIDTH = 10;
     private static final int OBJECT_HEIGHT = 10;
+    private static final int REPORTING_RANGE =  10;
 
     // Component where witness is going to be drawn at
     Component c;
@@ -85,7 +88,11 @@ public class Witness {
 
             c.repaint();
 
-            // TODO: check for accidents and report to Operator
+            for (Accident accident: SimulationFrame.accidends){
+                if (Math.abs(accident.getX() - this.X) < REPORTING_RANGE && Math.abs(accident.getY()- this.Y) < REPORTING_RANGE) {
+                    Helpline.getInstance().getOperator().receiveReport(accident.getX(), accident.getY(), accident.getType());
+                }
+            }
 
             try {
                 Thread.sleep(THREAD_SLEEP_TIME);

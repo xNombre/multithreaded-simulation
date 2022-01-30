@@ -10,8 +10,8 @@ public class Accident {
     private static final ImageIcon robbery = new ImageIcon("src/main/java/simulation/graphics/robbery.png");
     private static final ImageIcon traffAcc = new ImageIcon("src/main/java/simulation/graphics/traffAcc.png");
 
-    int X, Y;
-    AccidentType type;
+    private int X, Y;
+    private AccidentType type;
 
     final ImageIcon img;
 
@@ -36,6 +36,17 @@ public class Accident {
         }
         X = rand.nextInt(600);
         Y = rand.nextInt(600);
+    }
+    public int getX(){
+        return X;
+    }
+
+    public int getY() {
+        return Y;
+    }
+
+    public AccidentType getType() {
+        return type;
     }
 
     public void paint(Graphics g) {
