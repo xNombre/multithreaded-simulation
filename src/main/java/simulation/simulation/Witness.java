@@ -31,8 +31,8 @@ public class Witness {
     public static void setBorder(int borderWidth, int borderHeight) throws Exception {
         if (borderWidth < 1 || borderHeight < 1)
             throw new Exception("Border values must be greater");
-        Witness.borderWidth = borderWidth;
-        Witness.borderHeight = borderHeight;
+        Witness.borderWidth = borderWidth - OBJECT_WIDTH;
+        Witness.borderHeight = borderHeight - OBJECT_HEIGHT;
     }
 
     public Witness(Component c) throws Exception {
@@ -98,7 +98,13 @@ public class Witness {
         g.fillRect(X, Y, OBJECT_WIDTH, OBJECT_HEIGHT);
     }
 
-    void threadStop() {
+    public void threadStop() {
         threadShouldStop = true;
+    }
+
+    public void threadStart() {
+        threadShouldStop = false;
+        witnessThread = new Thread(witnessRunnable);
+        witnessThread.start();
     }
 }
