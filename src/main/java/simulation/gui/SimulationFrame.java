@@ -19,17 +19,16 @@ public class SimulationFrame extends JFrame {
     SimulationPanel simPanel = new SimulationPanel();
     JPanel butPanel = new JPanel();
 
-
     private static class SimulationPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            for(Witness witness : witnesses){
+            for (Witness witness : witnesses) {
                 witness.paint(g);
             }
 
-            for(Vehicle vehicle : vehicles) {
+            for (Vehicle vehicle : vehicles) {
                 vehicle.paint(g);
             }
         }
@@ -47,16 +46,18 @@ public class SimulationFrame extends JFrame {
 
         startButton.setEnabled(false);
         startButton.addActionListener(e -> startSimulation());
-
         stopButton.addActionListener(e -> stopSimulation());
-
         resetButton.addActionListener(e -> resetSimulation());
 
         butPanel.add(startButton);
         butPanel.add(stopButton);
         butPanel.add(resetButton);
+
         this.add(butPanel, BorderLayout.NORTH);
         this.add(simPanel, BorderLayout.CENTER);
+
+        // Hack height, should be calculated dynamically
+        Witness.setBorder(800, 728);
 
         addObjectsToPanel();
 
@@ -64,25 +65,24 @@ public class SimulationFrame extends JFrame {
 
     void addObjectsToPanel() throws Exception {
         // Change this values later
-        Witness.setBorder(800, 800);
         for (int i = 0; i < 10; i++) {
             witnesses.add(new Witness(simPanel));
         }
 
         for (int i = 0; i < 1; i++) {
-            vehicles.add(new Ambulance(100,100, simPanel));
+            vehicles.add(new Ambulance(100, 100, simPanel));
         }
     }
 
-    private void initializeProperties(){
+    private void initializeProperties() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
-    private static class Button extends JButton{
-        Button(String name){
-            this.setSize(200,100);
+    private static class Button extends JButton {
+        Button(String name) {
+            this.setSize(200, 100);
             this.setVisible(true);
             this.setText(name);
         }
@@ -91,10 +91,10 @@ public class SimulationFrame extends JFrame {
     private void startSimulation() {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
-        for (Witness i : witnesses){
+        for (Witness i : witnesses) {
             i.threadStart();
         }
-        for (Vehicle i : vehicles){
+        for (Vehicle i : vehicles) {
             i.threadStart();
         }
     }
@@ -102,10 +102,10 @@ public class SimulationFrame extends JFrame {
     private void stopSimulation() {
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
-        for (Witness i : witnesses){
+        for (Witness i : witnesses) {
             i.threadStop();
         }
-        for (Vehicle i : vehicles){
+        for (Vehicle i : vehicles) {
             i.threadStop();
         }
     }

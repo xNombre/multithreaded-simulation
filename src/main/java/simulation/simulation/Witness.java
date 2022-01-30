@@ -31,8 +31,8 @@ public class Witness {
     public static void setBorder(int borderWidth, int borderHeight) throws Exception {
         if (borderWidth < 1 || borderHeight < 1)
             throw new Exception("Border values must be greater");
-        Witness.borderWidth = borderWidth - (int)(OBJECT_WIDTH * 2.5);  // idk why 2.5 but it works good
-        Witness.borderHeight = borderHeight;
+        Witness.borderWidth = borderWidth - OBJECT_WIDTH;
+        Witness.borderHeight = borderHeight - OBJECT_HEIGHT;
     }
 
     public Witness(Component c) throws Exception {
