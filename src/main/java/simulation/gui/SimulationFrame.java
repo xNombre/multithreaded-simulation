@@ -3,6 +3,8 @@ package simulation.gui;
 import simulation.simulation.Ambulance;
 import simulation.simulation.Vehicle;
 import simulation.simulation.Witness;
+import simulation.simulation.Accident;
+import simulation.simulation.AccidentGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,17 +14,23 @@ public class SimulationFrame extends JFrame {
 
     static ArrayList<Witness> witnesses = new ArrayList<>();
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
+    public static ArrayList<Accident> accidends = new ArrayList<>();
+    AccidentGenerator generator;
 
     private static class SimulationPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            for(Witness witness : witnesses){
+            for (Accident accident : accidends) {
+                accident.paint(g);
+            }
+
+            for (Witness witness : witnesses) {
                 witness.paint(g);
             }
 
-            for(Vehicle vehicle : vehicles) {
+            for (Vehicle vehicle : vehicles) {
                 vehicle.paint(g);
             }
         }
@@ -45,12 +53,13 @@ public class SimulationFrame extends JFrame {
         }
 
         for (int i = 0; i < 1; i++) {
-            vehicles.add(new Ambulance(100,100, panel));
+            vehicles.add(new Ambulance(100, 100, panel));
         }
 
+        generator = new AccidentGenerator();
     }
 
-    private void initializeProperties(){
+    private void initializeProperties() {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
