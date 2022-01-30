@@ -12,15 +12,20 @@ public class Operator {
     }
 
     void receiveReport(int X, int Y, AccidentType type) {
-        // TODO: Implement dispatching
         switch (type) {
             case FIRE:
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.FIRE_TRUCK);
                 break;
             case HEALTH_HAZARD:
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.AMBULANCE);
                 break;
             case ROBBERY:
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.POLICE_CAR);
                 break;
             case TRAFFIC_ACCIDENT:
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.FIRE_TRUCK);
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.AMBULANCE);
+                VehicleDispatcher.dispatchVehicle(X, Y, VehicleType.POLICE_CAR);
                 break;
             default:
                 break;
