@@ -17,6 +17,13 @@ public class SimulationFrame extends JFrame {
     public static ArrayList<Accident> accidends = new ArrayList<>();
     AccidentGenerator generator;
 
+    Button startButton = new Button("Start");
+    Button stopButton = new Button("Stop");
+    Button resetButton = new Button("Reset");
+
+    SimulationPanel simPanel = new SimulationPanel();
+    JPanel butPanel = new JPanel();
+
     private static class SimulationPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -39,21 +46,40 @@ public class SimulationFrame extends JFrame {
     public SimulationFrame(final int width, final int height) throws Exception {
         super("Simulation");
         this.setSize(new Dimension(width, height));
+        this.setLayout(new BorderLayout());
+        this.setResizable(false);
 
         this.initializeProperties();
 
-        SimulationPanel panel = new SimulationPanel();
-        panel.setBackground(Color.gray);
-        this.add(panel);
+        simPanel.setBackground(Color.gray);
 
+        startButton.setEnabled(false);
+        startButton.addActionListener(e -> startSimulation());
+        stopButton.addActionListener(e -> stopSimulation());
+        resetButton.addActionListener(e -> resetSimulation());
+
+        butPanel.add(startButton);
+        butPanel.add(stopButton);
+        butPanel.add(resetButton);
+
+        this.add(butPanel, BorderLayout.NORTH);
+        this.add(simPanel, BorderLayout.CENTER);
+
+        // Hack height, should be calculated dynamically
+        Witness.setBorder(800, 728);
+
+        addObjectsToPanel();
+
+    }
+
+    void addObjectsToPanel() throws Exception {
         // Change this values later
-        Witness.setBorder(600, 600);
         for (int i = 0; i < 10; i++) {
-            witnesses.add(new Witness(panel));
+            witnesses.add(new Witness(simPanel));
         }
 
         for (int i = 0; i < 1; i++) {
-            vehicles.add(new Ambulance(100, 100, panel));
+            vehicles.add(new Ambulance(100, 100, simPanel));
         }
 
         generator = new AccidentGenerator();
@@ -65,4 +91,45 @@ public class SimulationFrame extends JFrame {
         this.setVisible(true);
     }
 
+    private static class Button extends JButton {
+        Button(String name) {
+            this.setSize(200, 100);
+            this.setVisible(true);
+            this.setText(name);
+        }
+    }
+
+    private void startSimulation() {
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
+        for (Witness i : witnesses) {
+            i.threadStart();
+        }
+        for (Vehicle i : vehicles) {
+            i.threadStart();
+        }
+    }
+
+    private void stopSimulation() {
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
+        for (Witness i : witnesses) {
+            i.threadStop();
+        }
+        for (Vehicle i : vehicles) {
+            i.threadStop();
+        }
+    }
+
+    private void resetSimulation() {
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
+        witnesses.removeAll(witnesses);
+        vehicles.removeAll(vehicles);
+        try {
+            addObjectsToPanel();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

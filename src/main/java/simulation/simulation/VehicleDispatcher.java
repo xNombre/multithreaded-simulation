@@ -5,5 +5,7 @@ package simulation.simulation;
 */
 
 public class VehicleDispatcher {
-    
+    public static void dispatchVehicle(int X, int Y, VehicleType vehicle) {
+
+    }
 }

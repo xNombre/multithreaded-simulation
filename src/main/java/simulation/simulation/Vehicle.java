@@ -28,6 +28,7 @@ public abstract class Vehicle {
     int destX, destY;
     int X = STARTING_X, Y = STARTING_Y;
     boolean isReturning = false;
+    boolean threadShouldStop = false;
     Thread vehicleThread;
 
     Vehicle(int destX, int destY, Component c) {
@@ -41,7 +42,7 @@ public abstract class Vehicle {
     }
 
     void vehicleAction() {
-        while (true) {
+        while (!threadShouldStop) {
             if (Y != destY && rand.nextBoolean()) {
                 int distance = Y - destY;
                 int distanceAbs = Math.abs(distance);
@@ -83,4 +84,15 @@ public abstract class Vehicle {
     }
 
     public abstract void paint(Graphics g);
+
+   public void threadStop() {
+        threadShouldStop = true;
+    }
+
+    public void threadStart() {
+        threadShouldStop = false;
+        vehicleThread = new Thread(vehicleRunnable);
+        vehicleThread.start();
+    }
 }
+
