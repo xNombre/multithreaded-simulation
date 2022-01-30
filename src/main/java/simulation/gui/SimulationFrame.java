@@ -44,6 +44,7 @@ public class SimulationFrame extends JFrame {
 
         simPanel.setBackground(Color.gray);
 
+        startButton.setEnabled(false);
         startButton.addActionListener(e -> startSimulation());
 
         stopButton.addActionListener(e -> stopSimulation());
@@ -87,6 +88,8 @@ public class SimulationFrame extends JFrame {
     }
 
     private void startSimulation() {
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
         for (Witness i : witnesses){
             i.threadStart();
         }
@@ -96,6 +99,8 @@ public class SimulationFrame extends JFrame {
     }
 
     private void stopSimulation() {
+        startButton.setEnabled(true);
+        stopButton.setEnabled(false);
         for (Witness i : witnesses){
             i.threadStop();
         }
@@ -105,6 +110,8 @@ public class SimulationFrame extends JFrame {
     }
 
     private void resetSimulation() {
+        startButton.setEnabled(false);
+        stopButton.setEnabled(true);
         witnesses.removeAll(witnesses);
         vehicles.removeAll(vehicles);
         try {
