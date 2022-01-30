@@ -2,7 +2,7 @@ package simulation.simulation;
 
 import java.awt.*;
 
-public class FireTruck extends Vehicle {
+public class  FireTruck extends Vehicle {
     public FireTruck(int destX, int destY, Component c) {
         super(destX, destY, c);
     }

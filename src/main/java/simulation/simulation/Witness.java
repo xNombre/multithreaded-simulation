@@ -1,6 +1,10 @@
 package simulation.simulation;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Witness {
@@ -11,7 +15,10 @@ public class Witness {
     private static final int NEW_DEST_RANGE = 100;
     private static final int OBJECT_WIDTH = 10;
     private static final int OBJECT_HEIGHT = 10;
-
+    private Shape shape;
+    private AffineTransform aft;
+    private Area area;
+    private ArrayList<Accident> accidents;
     // Component where witness is going to be drawn at
     Component c;
 
@@ -35,13 +42,17 @@ public class Witness {
         Witness.borderHeight = borderHeight;
     }
 
-    public Witness(Component c) throws Exception {
+    public Witness(Component c, ArrayList<Accident> accidents) throws Exception {
+        this.accidents = accidents;
+
         if (borderWidth == -1 || borderHeight == -1) {
             throw new Exception("Border not specified, use setBorder()");
         }
 
         X = destX = rand.nextInt(borderWidth);
         Y = destY = rand.nextInt(borderHeight);
+        shape = new Rectangle2D.Float(X, Y, OBJECT_WIDTH, OBJECT_HEIGHT);
+        area = new Area(shape);
 
         witnessThread = new Thread(witnessRunnable);
         witnessThread.start();
@@ -51,6 +62,7 @@ public class Witness {
 
     void witnessAction() {
         while (!threadShouldStop) {
+            aft = new AffineTransform();
             if (Y == destY && X == destX) {
                 // It's time to choose new destination
 
@@ -75,21 +87,35 @@ public class Witness {
                 int distanceAbs = Math.abs(distance);
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
                 X += (distance > 0 ? -step : step);
+                aft.translate((distance > 0 ? -step : step), 0);
             }
             if (Y != destY && rand.nextBoolean()) {
                 int distance = Y - destY;
                 int distanceAbs = Math.abs(distance);
                 int step = (distanceAbs < STEP_LENGTH ? distanceAbs : STEP_LENGTH);
                 Y += (distance > 0 ? -step : step);
+                aft.translate(0, (distance > 0 ? -step : step));
             }
+            area.transform(aft);
+            this.checkAccidents();
 
             c.repaint();
+//            System.out.println("x = " + X + "y = " + Y);
+//            System.out.println(area.getBounds());
 
             // TODO: check for accidents and report to Operator
 
             try {
                 Thread.sleep(THREAD_SLEEP_TIME);
             } catch (InterruptedException e) {
+            }
+        }
+    }
+
+    private void checkAccidents() {
+        for(Accident a : accidents) {
+            if (this.area.intersects(a.getArea())) {
+                a.report();
             }
         }
     }

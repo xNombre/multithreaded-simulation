@@ -14,7 +14,7 @@ public class SimulationFrame extends JFrame {
 
     static ArrayList<Witness> witnesses = new ArrayList<>();
     static ArrayList<Vehicle> vehicles = new ArrayList<>();
-    public static ArrayList<Accident> accidends = new ArrayList<>();
+    public static ArrayList<Accident> accidents = new ArrayList<>();
     AccidentGenerator generator;
 
     private static class SimulationPanel extends JPanel {
@@ -22,7 +22,7 @@ public class SimulationFrame extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            for (Accident accident : accidends) {
+            for (Accident accident : accidents) {
                 accident.paint(g);
             }
 
@@ -48,8 +48,8 @@ public class SimulationFrame extends JFrame {
 
         // Change this values later
         Witness.setBorder(600, 600);
-        for (int i = 0; i < 10; i++) {
-            witnesses.add(new Witness(panel));
+        for (int i = 0; i < 50; i++) {
+            witnesses.add(new Witness(panel, accidents));
         }
 
         for (int i = 0; i < 1; i++) {

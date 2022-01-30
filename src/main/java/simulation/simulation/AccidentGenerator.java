@@ -25,7 +25,7 @@ public class AccidentGenerator {
             e.printStackTrace();
         }
         while (!threadShouldStop) {
-            SimulationFrame.accidends.add(new Accident(AccidentType.getRandomAccident(AccidentType.class)));
+            SimulationFrame.accidents.add(new Accident(AccidentType.getRandomAccident(AccidentType.class)));
             int sleepTime = rand.nextInt(THREAD_SLEEP_MAX - THREAD_SLEEP_MIN + 1) + THREAD_SLEEP_MIN;
             try {
                 Thread.sleep(sleepTime);

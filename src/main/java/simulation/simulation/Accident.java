@@ -2,6 +2,8 @@ package simulation.simulation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
 public class Accident {
@@ -16,6 +18,12 @@ public class Accident {
     final ImageIcon img;
 
     private static final Random rand = new Random();
+
+    private Shape shape;
+    private Area area;
+    private static final int OBJECT_WIDTH = 20;
+    private static final int OBJECT_HEIGHT = 20;
+    private boolean isReported = false;
 
     Accident(AccidentType type) {
         this.type = type;
@@ -36,9 +44,20 @@ public class Accident {
         }
         X = rand.nextInt(600);
         Y = rand.nextInt(600);
+        shape = new Rectangle2D.Float(X, Y, OBJECT_WIDTH, OBJECT_HEIGHT);
+        area = new Area(shape);
     }
 
     public void paint(Graphics g) {
         g.drawImage(img.getImage(), X, Y,30,30, null);
+    }
+    public Rectangle2D getArea() {
+        return area.getBounds2D();
+    }
+    public void report() {
+        if (!isReported) {
+            isReported = true;
+            System.out.println("report");
+        }
     }
 }

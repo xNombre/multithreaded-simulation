@@ -11,5 +11,6 @@ public class Ambulance extends Vehicle {
     public void paint(Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(X, Y, OBJECT_WIDTH, OBJECT_HEIGHT);
+
     }
 }
