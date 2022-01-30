@@ -1,38 +1,37 @@
 package simulation.simulation;
+
 import java.awt.*;
+import java.util.Random;
+
 public class Accident {
+    int X, Y;
+    AccidentType type;
+    Color color;
+    private static final Random rand = new Random();
 
-	int x,y;
-	Thread accidentThread;
-	boolean threadShouldStop;
-	AccidentType type;
-	Color color;
+    Accident(AccidentType type) {
+        this.type = type;
 
-	Accident(AccidentType type){
-	this.type = type;
-	//To ktos mo¿e jakimœ ikonkami zast¹piæ
-	if(type == AccidentType.FIRE) {
-		color = Color.red;
-	}
-	else if(type == AccidentType.HEALTH_HAZARD) {
-		color = Color.green;
-	}
-	else if(type == AccidentType.TRAFFIC_ACCIDENT) {
-		color = Color.black;
-	}
-	else {
-		color = Color.blue;
-	}
-    x = Witness.rand.nextInt(600);
-    y = Witness.rand.nextInt(600);
-
-	}
-	
-	
-    public void paint(Graphics g) {
-    	g.setColor(color);
-        g.fillOval(x, y, 30, 30);
-        g.setColor(Color.black);
+        switch (type) {
+            case FIRE:
+                color = Color.red;
+                break;
+            case HEALTH_HAZARD:
+                color = Color.green;
+                break;
+            case TRAFFIC_ACCIDENT:
+                color = Color.black;
+                break;
+            default:
+                color = Color.blue;
+                break;
+        }
+        X = rand.nextInt(600);
+        Y = rand.nextInt(600);
     }
 
+    public void paint(Graphics g) {
+        g.setColor(color);
+        g.fillOval(X, Y, 30, 30);
+    }
 }
