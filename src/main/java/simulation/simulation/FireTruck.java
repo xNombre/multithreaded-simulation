@@ -7,8 +7,7 @@ public class FireTruck extends Vehicle {
         super(destX, destY, c);
     }
 
-    public FireTruck(Component c){
-        super(c);
+    public FireTruck(){
         this.vehicleType = VehicleType.FIRE_TRUCK;
     }
 

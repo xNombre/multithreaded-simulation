@@ -7,8 +7,7 @@ public class Ambulance extends Vehicle {
         super(destX, destY, c);
     }
 
-    public Ambulance(Component c){
-        super(c);
+    public Ambulance(){
         this.vehicleType = VehicleType.AMBULANCE;
     }
 

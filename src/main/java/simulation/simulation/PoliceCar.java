@@ -7,8 +7,7 @@ public class PoliceCar extends Vehicle {
         super(destX, destY, c);
     }
 
-    public PoliceCar(Component c){
-        super(c);
+    public PoliceCar(){
         this.vehicleType = VehicleType.POLICE_CAR;
     }
 

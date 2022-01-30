@@ -23,10 +23,10 @@ public class SimulationFrame extends JFrame {
     Button stopButton = new Button("Stop");
     Button resetButton = new Button("Reset");
 
-    SimulationPanel simPanel = new SimulationPanel();
+    public static SimulationPanel simPanel = new SimulationPanel();
     JPanel butPanel = new JPanel();
 
-    private static class SimulationPanel extends JPanel {
+    public static class SimulationPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -73,8 +73,6 @@ public class SimulationFrame extends JFrame {
 
         // Hack height, should be calculated dynamically
         Witness.setBorder(800, 728);
-
-        VehicleDispatcher.setComponent(simPanel);
 
         addObjectsToPanel();
 

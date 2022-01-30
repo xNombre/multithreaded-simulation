@@ -15,9 +15,6 @@ public class Witness {
     private static final int OBJECT_HEIGHT = 10;
     private static final int REPORTING_RANGE =  10;
 
-    // Component where witness is going to be drawn at
-    Component c;
-
     private static final Random rand = new Random();
     final Runnable witnessRunnable = new Runnable() {
         public void run() {
@@ -49,7 +46,7 @@ public class Witness {
         witnessThread = new Thread(witnessRunnable);
         witnessThread.start();
 
-        this.c = c;
+        //this.c = c;
     }
 
     void witnessAction() {
@@ -86,7 +83,7 @@ public class Witness {
                 Y += (distance > 0 ? -step : step);
             }
 
-            c.repaint();
+            SimulationFrame.simPanel.repaint();
 
             for (Accident accident: SimulationFrame.accidends){
                 if (Math.abs(accident.getX() - this.X) < REPORTING_RANGE && Math.abs(accident.getY()- this.Y) < REPORTING_RANGE) {

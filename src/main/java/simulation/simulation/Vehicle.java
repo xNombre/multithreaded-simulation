@@ -1,6 +1,9 @@
 package simulation.simulation;
 
 import java.util.Random;
+
+import simulation.gui.SimulationFrame;
+
 import java.awt.*;
 
 public abstract class Vehicle {
@@ -15,9 +18,6 @@ public abstract class Vehicle {
     protected static final int OBJECT_WIDTH = 10;
     protected static final int OBJECT_HEIGHT = 10;
     protected VehicleType vehicleType;
-
-    // Component where witness is going to be drawn at
-    Component c;
 
     private static final Random rand = new Random();
     final Runnable vehicleRunnable = new Runnable() {
@@ -40,11 +40,10 @@ public abstract class Vehicle {
         vehicleThread = new Thread(vehicleRunnable);
         vehicleThread.start();
 
-        this.c = c;
+        //this.c = c;
     }
 
-    Vehicle(Component c) {
-        this.c = c;
+    Vehicle() {
     }
 
     void vehicleAction() {
@@ -62,7 +61,7 @@ public abstract class Vehicle {
                 X += (distance > 0 ? -step : step);
             }
 
-            c.repaint();
+            SimulationFrame.simPanel.repaint();
 
             if (Y == destY && X == destX) {
                 // Am I done?
