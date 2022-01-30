@@ -1,4 +1,4 @@
-package simulation.simulation;
+package simulation.vehicles;
 
 import java.util.Random;
 import java.awt.*;

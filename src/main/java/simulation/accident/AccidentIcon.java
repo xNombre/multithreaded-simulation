@@ -1,4 +1,4 @@
-package simulation.simulation;
+package simulation.accident;
 
 import javax.swing.*;
 import java.util.AbstractMap;

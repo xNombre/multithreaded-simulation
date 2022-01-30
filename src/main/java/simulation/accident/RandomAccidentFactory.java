@@ -1,6 +1,6 @@
-package simulation.simulation;
+package simulation.accident;
 
-public class RandomAccidentFactory implements AccidentFactory{
+public class RandomAccidentFactory implements AccidentFactory {
 
     @Override
     public Accident getAccident() {

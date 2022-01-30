@@ -1,4 +1,4 @@
-package simulation.simulation;
+package simulation.accident;
 
 import java.util.Random;
 

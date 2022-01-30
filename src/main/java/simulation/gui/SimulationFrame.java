@@ -1,10 +1,10 @@
 package simulation.gui;
 
-import simulation.simulation.Ambulance;
-import simulation.simulation.Vehicle;
+import simulation.vehicles.Ambulance;
+import simulation.vehicles.Vehicle;
 import simulation.simulation.Witness;
-import simulation.simulation.Accident;
-import simulation.simulation.AccidentGenerator;
+import simulation.accident.Accident;
+import simulation.accident.AccidentGenerator;
 
 import javax.swing.*;
 import java.awt.*;

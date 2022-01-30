@@ -1,4 +1,4 @@
-package simulation.simulation;
+package simulation.vehicles;
 
 public class VehicleTracker {
     

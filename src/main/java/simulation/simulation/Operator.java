@@ -1,5 +1,9 @@
 package simulation.simulation;
 
+import simulation.accident.AccidentType;
+import simulation.vehicles.VehicleDispatcher;
+import simulation.vehicles.VehicleType;
+
 public class Operator {
     private int id;
 
