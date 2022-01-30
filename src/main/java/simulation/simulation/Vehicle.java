@@ -5,7 +5,7 @@ import java.awt.*;
 
 public abstract class Vehicle {
     // Delay between each step
-    private static final int THREAD_SLEEP_TIME = 1;
+    private static final int THREAD_SLEEP_TIME = 10;
     private static final int STEP_LENGTH = 1;
     // Time needed for rescure after reaching the destination
     private static final int RESCUE_TIME = 50;

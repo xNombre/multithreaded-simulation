@@ -38,8 +38,8 @@ public class VehicleDispatcher {
         }
     }
 
-    public void setComponent(Component component) {
-        this.component = component;
+    public static void setComponent(Component component) {
+        VehicleDispatcher.component = component;
     }
 
     public synchronized void dispatchVehicle(int X, int Y, VehicleType vehicle) {
