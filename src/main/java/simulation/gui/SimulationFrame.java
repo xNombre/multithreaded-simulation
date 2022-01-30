@@ -9,12 +9,13 @@ import simulation.simulation.AccidentGenerator;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class SimulationFrame extends JFrame {
-
-    static ArrayList<Witness> witnesses = new ArrayList<>();
-    static ArrayList<Vehicle> vehicles = new ArrayList<>();
-    public static ArrayList<Accident> accidends = new ArrayList<>();
+    static List<Witness> witnesses = Collections.synchronizedList(new ArrayList<Witness>());
+    static List<Vehicle> vehicles = Collections.synchronizedList(new ArrayList<Vehicle>());
+    public static List<Accident> accidends = Collections.synchronizedList(new ArrayList<Accident>());
     AccidentGenerator generator;
 
     Button startButton = new Button("Start");
