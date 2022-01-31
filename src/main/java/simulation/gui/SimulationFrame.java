@@ -16,7 +16,7 @@ import java.util.List;
 public class SimulationFrame extends JFrame {
     static List<Witness> witnesses = Collections.synchronizedList(new ArrayList<Witness>());
     public static List<Accident> accidends = Collections.synchronizedList(new ArrayList<Accident>());
-    AccidentGenerator generator;
+    private AccidentGenerator generator;
 
     Button startButton = new Button("Start");
     Button stopButton = new Button("Stop");
@@ -71,7 +71,7 @@ public class SimulationFrame extends JFrame {
         Accident.setBorder(800, 728);
 
         addObjectsToPanel();
-
+        generator = new AccidentGenerator();
     }
 
     void addObjectsToPanel() throws Exception {
@@ -79,8 +79,6 @@ public class SimulationFrame extends JFrame {
         for (int i = 0; i < 50; i++) {
             witnesses.add(new Witness());
         }
-
-        generator = new AccidentGenerator();
     }
 
     private void initializeProperties() {
@@ -124,7 +122,8 @@ public class SimulationFrame extends JFrame {
     private void resetSimulation() {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
-        witnesses.removeAll(witnesses);
+        witnesses.clear();
+        generator.stopGenerator();
         generator.startGenerator();
         VehicleDispatcher.getInstance().vehicles.clear();
         try {
