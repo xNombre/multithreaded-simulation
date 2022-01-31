@@ -3,10 +3,6 @@ package simulation.simulation;
 import java.awt.*;
 
 public class Ambulance extends Vehicle {
-    public Ambulance(int destX, int destY, Component c) {
-        super(destX, destY, c);
-    }
-
     public Ambulance(){
         this.vehicleType = VehicleType.AMBULANCE;
     }

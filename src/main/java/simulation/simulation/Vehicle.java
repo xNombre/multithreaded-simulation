@@ -33,16 +33,6 @@ public abstract class Vehicle {
     private Thread vehicleThread;
     private boolean isBusy = false;
 
-    Vehicle(int destX, int destY, Component c) {
-        this.destX = destX;
-        this.destY = destY;
-
-        vehicleThread = new Thread(vehicleRunnable);
-        vehicleThread.start();
-
-        //this.c = c;
-    }
-
     Vehicle() {
     }
 

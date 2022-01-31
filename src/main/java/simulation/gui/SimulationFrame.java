@@ -15,7 +15,6 @@ import java.util.List;
 
 public class SimulationFrame extends JFrame {
     static List<Witness> witnesses = Collections.synchronizedList(new ArrayList<Witness>());
-    static List<Vehicle> vehicles = Collections.synchronizedList(new ArrayList<Vehicle>());
     public static List<Accident> accidends = Collections.synchronizedList(new ArrayList<Accident>());
     AccidentGenerator generator;
 
@@ -37,10 +36,6 @@ public class SimulationFrame extends JFrame {
 
             for (Witness witness : witnesses) {
                 witness.paint(g);
-            }
-
-            for (Vehicle vehicle : vehicles) {
-                vehicle.paint(g);
             }
 
             for(Vehicle veh : VehicleDispatcher.getInstance().vehicles) {
@@ -85,10 +80,6 @@ public class SimulationFrame extends JFrame {
             witnesses.add(new Witness(simPanel));
         }
 
-        for (int i = 0; i < 0; i++) {
-            vehicles.add(new Ambulance(100, 100, simPanel));
-        }
-
         generator = new AccidentGenerator();
     }
 
@@ -112,7 +103,7 @@ public class SimulationFrame extends JFrame {
         for (Witness i : witnesses) {
             i.threadStart();
         }
-        for (Vehicle i : vehicles) {
+        for (Vehicle i : VehicleDispatcher.getInstance().vehicles) {
             i.threadStart();
         }
     }
@@ -123,7 +114,7 @@ public class SimulationFrame extends JFrame {
         for (Witness i : witnesses) {
             i.threadStop();
         }
-        for (Vehicle i : vehicles) {
+        for (Vehicle i : VehicleDispatcher.getInstance().vehicles) {
             i.threadStop();
         }
     }
@@ -132,7 +123,7 @@ public class SimulationFrame extends JFrame {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
         witnesses.removeAll(witnesses);
-        vehicles.removeAll(vehicles);
+        VehicleDispatcher.getInstance().vehicles.clear();
         try {
             addObjectsToPanel();
         } catch (Exception ex) {
