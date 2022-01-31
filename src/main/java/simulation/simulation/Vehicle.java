@@ -31,7 +31,7 @@ public abstract class Vehicle {
     private boolean isReturning = false;
     private boolean threadShouldStop = false;
     private Thread vehicleThread;
-    private boolean isBusy = false;
+    protected boolean isBusy = false;
 
     Vehicle() {
     }
