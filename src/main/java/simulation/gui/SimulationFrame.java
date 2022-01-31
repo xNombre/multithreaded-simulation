@@ -77,7 +77,7 @@ public class SimulationFrame extends JFrame {
     void addObjectsToPanel() throws Exception {
         // Change this values later
         for (int i = 0; i < 50; i++) {
-            witnesses.add(new Witness(simPanel));
+            witnesses.add(new Witness());
         }
 
         generator = new AccidentGenerator();

@@ -35,7 +35,7 @@ public class Witness {
         Witness.borderHeight = borderHeight - OBJECT_HEIGHT;
     }
 
-    public Witness(Component c) {
+    public Witness() {
         if (borderWidth == -1 || borderHeight == -1) {
             throw new IllegalStateException();
         }
@@ -45,8 +45,6 @@ public class Witness {
 
         witnessThread = new Thread(witnessRunnable);
         witnessThread.start();
-
-        //this.c = c;
     }
 
     void witnessAction() {
