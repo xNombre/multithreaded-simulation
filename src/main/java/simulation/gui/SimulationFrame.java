@@ -100,6 +100,7 @@ public class SimulationFrame extends JFrame {
     private void startSimulation() {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
+        generator.startGenerator();
         for (Witness i : witnesses) {
             i.threadStart();
         }
@@ -111,6 +112,7 @@ public class SimulationFrame extends JFrame {
     private void stopSimulation() {
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
+        generator.stopGenerator();
         for (Witness i : witnesses) {
             i.threadStop();
         }
@@ -123,6 +125,7 @@ public class SimulationFrame extends JFrame {
         startButton.setEnabled(false);
         stopButton.setEnabled(true);
         witnesses.removeAll(witnesses);
+        generator.startGenerator();
         VehicleDispatcher.getInstance().vehicles.clear();
         try {
             addObjectsToPanel();

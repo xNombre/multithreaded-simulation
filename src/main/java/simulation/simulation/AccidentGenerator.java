@@ -28,4 +28,8 @@ public class AccidentGenerator {
     public void stopGenerator() {
         timer.cancel();
     }
+
+    public void startGenerator() {
+        timer.schedule(new Task(), THREAD_SLEEP_MIN);
+    }
 }
