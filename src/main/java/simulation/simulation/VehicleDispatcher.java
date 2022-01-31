@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import java.awt.Component;
-
 public class VehicleDispatcher {
     private static VehicleDispatcher INSTANCE = new VehicleDispatcher();
     private static final int FIRE_TRUCK_COUNT = 10;

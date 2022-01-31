@@ -55,8 +55,12 @@ public abstract class Vehicle {
 
             if (Y == destY && X == destX) {
                 // Am I done?
-                if (isReturning)
+                if (isReturning) {
+                    isBusy = false;
+                    isReturning = false;
+
                     break;
+                }
 
                 // Nope, time to rescue
                 try {
@@ -71,6 +75,7 @@ public abstract class Vehicle {
                 destX = STARTING_X;
                 destY = STARTING_Y;
                 isReturning = true;
+
                 continue;
             }
 
@@ -79,8 +84,6 @@ public abstract class Vehicle {
             } catch (InterruptedException e) {
             }
         }
-        isBusy = false;
-        isReturning = false;
     }
 
     public abstract void paint(Graphics g);

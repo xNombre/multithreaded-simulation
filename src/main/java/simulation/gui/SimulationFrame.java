@@ -1,6 +1,5 @@
 package simulation.gui;
 
-import simulation.simulation.Ambulance;
 import simulation.simulation.Vehicle;
 import simulation.simulation.VehicleDispatcher;
 import simulation.simulation.Witness;
@@ -125,6 +124,8 @@ public class SimulationFrame extends JFrame {
         witnesses.clear();
         generator.stopGenerator();
         generator.startGenerator();
+        accidends.clear();
+
         VehicleDispatcher.getInstance().vehicles.clear();
         try {
             addObjectsToPanel();
