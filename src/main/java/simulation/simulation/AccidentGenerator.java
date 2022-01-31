@@ -11,7 +11,7 @@ public class AccidentGenerator {
     private final int THREAD_SLEEP_MAX = 10000;
     private final AccidentFactory accidentFactory = new RandomAccidentFactory();
     private static final Random rand = new Random();
-    private final Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     private class Task extends TimerTask {
         @Override
@@ -31,6 +31,7 @@ public class AccidentGenerator {
     }
 
     public void startGenerator() {
+        this.timer = new Timer();
         timer.schedule(new Task(), THREAD_SLEEP_MIN);
     }
 }
